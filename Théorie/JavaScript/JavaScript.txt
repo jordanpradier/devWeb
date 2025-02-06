@@ -1,0 +1,191 @@
+JavaScript
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Basics
+
+console.log(): Affiche la valeur d'une variable dans la console
+JavaScript commence à compter à 0, et non 1
+
+Eviter les répétitions syntaxiques
+\"	single quote
+\'	double quote
+\\	backslash
+\n	nouvelle ligne
+\r	carrier return
+\t	tab
+\b	backspace
+\f	form feed
+
+Opérateurs
+==		Egal 
+===		Strictement égal (par rapport à la valeur ET au type)
+!=		Pas égal
+!==		Strictement pas égal (par rapport à la valeur ET au type)
+<		Inférieur à
+<=		Inférieur ou égal à
+>		Supérieur à
+>=		Supérieur ou égal à
+&& 		Et (and)
+||		Ou (or)
+
+DataType
+La plupart du temps, les DataTypes seront associés à une variable
+undefined: Quelque chose qui n'est pas défini
+null: Rien
+boolean: True ou False
+string: Chaîne de caractères
+symbol: Valeur primitive immuable et unique
+number: Nombre
+object: Stock plusieurs valeurs de clé pairées
+
+Variable
+var: Pourra être utilisé tout au long du programme; ou de la fonction si la variable est déclarée dans une fonction et réécrite
+let: Ne sera utilisé et sera inchangable que dans le bloc {} où je l'ai déclaré
+const: Variable qui ne peut pas changer (lecture seule)
+"use strict": Détecte les erreurs de codage et les actions dangereuses
+comme une variable non déclarée avec var, let ou const
+
+Fonctions
+Permet de créer du code réutilisable
+
+Scope
+Réfère à la visibilité des variables
+Les variables définies en dehors d'un bloc fonctionnel ont une portée globale (vues partout dans le code)
+Les variables définies à l'intérieur d'une fonction par exemple ont une portée locale (vue uniquement dans la fonction en question)
+Une variable peut être remplacée dans une fonction, mais elle sera remplacée UNIQUEMENT dans la fonction et non dans un scope global
+
+Lors d'un "else if", faire attention au positionnement des ordres logiques.
+
+Hoisting
+Comportement JS où les déclaration de variables et de fonctions sont déplacées en haut de leur "Scope" respectifs pendnat la phase de compilation
+Permet d'utiliser des variables/fonctions avant leur déclaration dans le code
+console.log(x); // undefined
+var x = 5;
+
+This
+Dans un contexte global (en dehors de fonctions), "this" fait référence à l'objet global, dans une page web, cet objet global est généralemen "window"
+console.log(this); // Fait référence à l'objet global (par exemple, window dans un navigateur)
+
+Dans une fonction, "this" fait référence à l'objet appelé dans la fonction, si la fonction n'est pas appelée en tant que méthode d'un objet, "this" fait référence à l'objet global par défaut
+function exempleFonction() {
+  console.log(this);
+}
+exempleFonction(); // Fait référence à l'objet global
+var obj = {
+  méthode: exempleFonction
+};
+obj.méthode(); // Fait référence à l'objet 'obj'
+
+Dans une méthode (une fonction qui est une propriété d'un objet), "this" fait référence à l'objet sur lequel la méthode a été appelée.
+var obj = {
+  méthodeExemple: function() {
+    console.log(this);
+  }
+};
+obj.méthodeExemple(); // Fait référence à l'objet 'obj'
+
+Lorsqu'une fonction est utilisée comme constructeur avec le mot-clé "new", "this" fait référence à la nouvelle instance créée.
+function ExempleConstructeur() {
+  this.propriété = "une valeur";
+  console.log(this);
+}
+var instance = new ExempleConstructeur(); // Fait référence à la nouvelle instance créée
+
+Dans les fonctions gestionnaires d'événements, 'this' fait souvent référence à l'élément DOM qui a déclenché l'événement.
+document.getElementById("monBouton").addEventListener("click", function() {
+  console.log(this); // Fait référence à l'élément bouton
+});
+
+Les fonctions fléchées n'ont pas leur propre "this". Elles héritent de la valeur de "this" du contexte qui les entoure.
+var fonctionFléchée = () => {
+  console.log(this); // Hérite de 'this' du contexte environnant
+};
+fonctionFléchée(); // Dépend d'où 'fonctionFléchée' est définie
+
+Comprendre le contexte dans lequel une fonction est invoquée est crucial pour interpréter correctement la valeur de "this" en JavaScript. 
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+DOM (Document Object Model)
+
+Diagramme d'un DOM: 
+freecodecamp.org/news/content/images/2023/01/DOM-tree-5.png
+
+Pour sélectionner un élément dans le DOM il existe plusieurs façons
+- GetElementById(): 
+- GetElementbyClassName()
+- getElementsByTagName()
+- querySelector()
+- querySelectorAll()
+Le plus souvent utilisé est Selector ou SelectorAll en spécifiant le plus souvent l'id et les classes
+
+Toutes les propriétés css sont écrites différement en DOM, au lieu de "font-size" il faudra écrire "fontSize"
+
+Appliquer un style inline ne marchera que pour 1 seul élément, il faudra une boucle "for" pour boucler sur tous les éléments
+
+Modifier du texte
+innerText: Voir le texte visible contenu
+textContent: Voir de la même façon que c'est placé dans le HTML
+innerHTML: Pareil avec les tags, classes et id
+Il ne faut pas utiliser innerHTML pour raison de sécurité, ça laisserais l'utilisateur contrôler le JavaScript et le HTML de la page
+Dans la plupart des cas, utiliser "innerText"
+
+Event Listeners
+- Directement dans le document HTML permet d'appliquer qu'un seul event (override)
+- Dans le document JS, on peut appliquer le nombre d'event que l'on souhaite
+
+Event Propagation
+Composé de trois phases
+1. Event Capturing: Voyage de la base du document à la cible
+2. Target: Attrape la cible sur laquelle on agit (par exemple un "click")
+3. Event Bubbling: Retourne de la cible à la base du document
+
+Event Delegation
+Permet aux utilisateurs d'ajouter UN SEUL EventListener à un élémént parent qui va l'ajouter à tous ses descendants qui ont le même sélecteur
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Asynchronous
+
+L'asynchrone travaille indépendament du reste, ce qui signifie que je vais pouvoir faire 2 tâches en même temps sans me soucier que la tâche précédente est terminée pour commencer la suivante
+
+
+Promise
+
+Les étapes de la promesse sont:
+- Promesse (Nous fabriquons des glaces)
+- Attente (Savoir si le client veut commander ou non, reflexion)
+- Resolve / Reject (Le client commande une glace à la mangue, on a de la mangue ou non)
+- .then .then (Nous en avons, donc on lui fabrique et lui donne)
+- .catch (Nous n'en avons pas, on s'excuse)
+- .finally (Le client quitte le restaurant qu'il ai consommé ou non)
+
+
+Async / Await
+
+async: Utilisé pour déclarer une fonction asynchrone.
+Une fonction asynchrone renvoie toujours une Promise, même si elle ne contient pas explicitement un objet Promise.
+Le async permet de déclarer une fonction qui va retourner une Promise implicitement
+
+await: Utilisé à l'intérieur d'une fonction async 
+Il permet de mettre en pause l'exécution de la fonction jusqu'à ce que la Promise soit résolue ou rejetée 
+Cela évite d'utiliser des callbacks ou des promesses en chaîne
+
+
+try, catch, finally
+
+Offre un moyen robuste de gérer les erreurs dans le code
+Permet de définir un comportement spécifique en cas d'erreur tout en garantissant l'exécution d'un code particulier, que des erreurs surviennent ou non
+
+try: Contient le code qui peut générer une exception.
+C'est la partie du code où vous souhaitez surveiller les erreurs
+Si une exception est levée, le contrôle est transféré à "catch", sinon l'exécution continue et ignore "catch"
+
+catch: Utilisé pour gérer les exceptions levées dans "try" et spécifier comment traiter l'erreur
+La variable "error" dans le bloc catch contient l'objet d'erreur généré, et vous pouvez utiliser cette variable pour accéder aux détails de l'erreur
+
+finally: Optionnel et est exécuté qu'il y ait eu une exception ou non dans "try"
+Généralement utilisé pour spécifier un code qui doit être exécuté indépendamment de la réussite ou de l'échec de "try"
+Souvent utilisé pour effectuer des opérations de nettoyage ou de libération de ressources
+

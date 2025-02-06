@@ -1,0 +1,124 @@
+CSS
+
+Les différentes façons d'implémenter du CSS
+- L'inline avec l'attribut HTML "style"
+- L'utilisation de la balise CSS <style>
+- L'utilisation d'un fichier CSS externe qu'il faudra importer avec <link rel="stylesheet" href="fichier.css"> dans la balise <head>
+
+Priorité du CSS de la plus petite à la plus grande
+- Le sélecteur universel
+- Le sélecteur de pseudo-élément
+- Le sélecteur de type 
+- Le sélecteur de pseudo-classe
+- Le sélecteur de classes
+- Le sélecteur d'attribut
+- Le sélecteur d'identifiant
+- Les éléments définis directement dans la page HTML
+- La directive !important (à utiliser en dernier recours)
+Il est possible de "booster" la spécificité en répétant le sélecteur de classe par exemple ".class.class"
+Avec un score de spécificité correspondant, l'instance la plus récente gagne (fin de code)
+
+Diagramme d'une box en CSS : https://web.dev/static/learn/css/layout/image/a-diagram-showing-the-di-4e46d3ae32e54_856.png?hl=fr
+
+La mise en page
+- display: inline; agit comme une phrase composée de mots, à la suite les uns à la suite des autres dans une direction linéaire
+- Les éléments comme <span> et <strong> qui sont typicalement utilisés pour styliser des pièces de texte contenant des éléments, comme un <p>, sont "inline" par défaut
+- Il n'est pas possible de fixer une largeur / longueur sur un élément "inline"
+---
+- Les éléments "block" ne sont pas côte à côte, ils créent une nouvelle ligne pour eux-même (à moins qu'ils ne soient modifiés par du CSS)
+- Un élément "block" va s'étendre sur la taille de la dimension "inline", couvrant ainsi toute la largeur dans un mode d'écriture horizontal, la marge sera respectée.
+---
+- La propriété display détermine également le comportement des enfants d'un élément
+
+Flexbox
+- Flexbox est un système de mise en page pour une seule dimension vers un seul axe, horizontal ou vertical, il va, par défaut aligner les éléments côte à côte dans la direction "inline" et les étendre dans la direction du "block" pour qu'ils aient tous la même hauteur
+- Cette option peut être changée pour arrêter de compresser les éléments pour qu'ils rentrent tous sur une ligne avec les propriétés "align-items", "justify-content" et "flex-wrap"
+- La propriété "flex" est un raccourci pour "flex-grow", "flex-shrink" et "flex-basis", les deux façons sont utilisables
+
+Grid
+- Grid profite du même système que Flexbox mais avec un contrôle sur plusieurs axes
+- Une unité importante du Grid avec le "fr", qui est une fraction de l'espace restant
+- Il est possible de construire jusqu'à 12 colonnes Grid avec un espace entre elles
+- Quand Flexbox traite les objets comme des groupes, Grid vous permet de contrôler les mouvements en 2D, on peut donc spécifier unitairement la taille que chaque élément prendra
+
+Il est possible de faire de la mise en page sans Flexbox et Grid
+- Lorsque de l'utilisation de "float", gardez à l'esprit que la disposition des éléments suivant l'élément flottant peut être ajustée 
+   Pour éviter cela, vous pouvez effacer le float, soit en utilisant "clear: both" sur un élément qui suit votre élément flottant, soit en utilisant "display: flow-root" sur le parent de vos éléments flottants
+
+Positionnement
+- Ajouter une "position: relative" à un élément le fait devenir l'élément parent aux éléments avec "position: absolute"
+- Lorsque l'on place la "position: absolute", on peut positionner cet élément où on le souhaite à côté de son parent relatif et tout le contenu autour d'un élément absolu remplira l'espace vide créé par l'élément
+- Un élément avec "position: fixed" va se comporter comme un absolu avec ses parents en branche, l'élément <html>, fixé de base en haut à gauche mais change selon la valeur choisie
+
+scroll-behavior: smooth;	Permet un scroll de page fluide lors d'un href
+
+------------------------------------------------
+
+Position
+
+static: position par défaut (état normal)
+
+relative: bouger l'élément par son point d'origine (topleft)
+
+absolute: en dehors du flux du document (les autres éléments ignoreront l'élément en position absolu) comme un fantôme et recherchera un point d'origine d'un élément positionné de manière non "static", si il n'en trouve pas, le point d'origine sera le document
+
+fixed: restera en position de notre fenêtre d'affichage (viewport) même après du scroll dans la fenêtre
+
+sticky: restera fixé à la fenêtre d'affichage si on passe dessus après un scroll selon sa position, et si l'on remonte/descend, il se remettra à sa place par défaut
+
+-----------------------------------------------------------------------------------
+
+Flexbox
+
+display: flex; va créer deux axes invisibles X et Y et aligner les éléments par défaut en ligne (axe X)
+
+flex-direction: column; va changer l'axe de direction des éléments en colonnes Y
+flex-direction: row; les éléments se remettront dans l'axe de direction en ligne X
+avec 'inverse' à la fin, on part de la droite (X) ou du bas (Y) pour aller à l'opposé
+
+justify-content: flex-start; alignera les éléments au début de l'axe X si la direction est en row
+justify-content: flex-end; à la fin de l'axe X
+justify-content: center; centré sur l'axe X
+justify-content: space-between; l'espace entre les éléments sera distribué équitablement, avec 3 éléments, il y aura un à gauche, un au centre et un a la fin
+justify-content: space-around; pareillement sauf que les côtés auront aussi un espace attribué
+justify-content: space-evenly; répartira uniformément l'espace entre tous les éléments
+
+align-items: flex-start; placera les éléments au début de l'axe opposé donc si on prend X, cette ligne permettra de placer les éléments en haut de la page car il prendra Y
+align-items: flex-end; à la fin de l'axe opposé donc en bas
+align-items: center; au centre de la page verticalement
+align-items: baseline; aligne le texte de base de chaque élément sur l'axe opposé
+
+flex-wrap: nowrap; les éléments resteront sur la même ligne quitte à se resserer tous
+flex-wrap: wrap; les éléments n'essaieront plus de tenir dans une seule ligne et iront à la ligne quand il n'y aura plus d'espace disponible pour eux
+
+align-content: flex-start; pareil que align-items mais ne fonctionne uniquement qu'avec le "wrap"
+
+gap: 10px; ajoute un espace entre les éléments de 10px
+
+----------
+
+flex-grow: 1; sera spécifié sur un élément et non le groupe d'élément pour lui permettre de grandir s'il y a suffisamment d'espace 
+
+flex-shrink: 5; sera spécifié sur un élément et non le groupe d'élément et lui permettra de rétrécir lors de manque de place, plus facilement que les autres
+flex-shirnk: 0; refusera de rétrécir lors de manque de place
+
+flex-basis: 100px; sera spécifié sur un élément et non le groupe d'élément, réécrit la taille d'un élément même si sa taille est définie auparavant
+
+flex: 1 5 100px; regroupe les 3 derniers attributs dans l'ordre, si on définit que le "grow":
+flex: 1; les 2 autres seront définis automatiquement et intelligemment 
+
+align-self: center; sera spécifié sur un élément et non le groupe d'élément, fonctionne comme le "align-items" et "align-content" mais individuellement
+
+order: -1; sera spécifié sur un élément et non le groupe d'élément, ordonnera à l'élément d'être le premier de la ligne même s'il est défini après les autres éléments dans le html
+
+
+ 
+
+
+
+
+
+
+
+
+

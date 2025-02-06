@@ -1,0 +1,57 @@
+<!DOCTYPE html>   <!-- Type de document que le navigateur va afficher --> 
+<html>
+
+    <head>
+        <title>Titre</title>   <!-- Titre de la page (onglet) -->
+    </head>
+
+    <body>
+        <p>Paragraphe</p>   <!-- Paragraphe -->
+
+        <h1>Header</h1>   <!-- Header allant de h1 à h6 -->
+
+        <hr></hr>   <!-- Ligne horizontale -->
+
+        <ul style="list-style-type: circle">   <!-- Liste non ordonnée avec un style pour le point des lignes -->
+            <li>1</li>   <!-- Eléments de la liste ul -->
+            <li>2</li>
+        </ul>
+
+        <ol type="A">   <!-- Liste ordonnée avec la spécificité "type" de l'ordonnance -->
+            <li>A</li>   <!-- Eléments de la liste ol -->
+            <li>B</li>
+        </ol>
+
+        <img src="image.png">   <!-- Insertion d'image locale ou web -->
+        <img src="image.png" alt="Quasimoto">   <!-- Attribue un tooltip à l'image lors de l'hover du curseur -->
+        <img src="image.png" style="width: 100px">   <!-- Utilise CSS pour définir la taille de l'image -->
+        <img src="image.png" onload="alert('Image chargée')">   <!-- Utilise JavaScript pour déclencher un évènement quand l'image s'est chargée -->
+
+        <a href="https://www.google.com">Lien Google</a>   <!-- Insertion de lien web -->
+        <a href="#identifiant">Paragraphe identifiant</a>   <!-- Insertion de lien vers l'id "identifiant" -->
+
+        <img src="image.png" style="float: left;">   <!-- Utilise CSS pour faire flotter l'image à gauche pour que "Texte 1" soit situé à côté -->
+
+        <p>Texte 1</p>
+
+        <p style="clear: both">Texte 2</p>   <!-- Utilise CSS pour casser le flottement après "Texte 1" et retourner à la ligne -->
+    
+
+        <div></div>   <!-- Divison d'élément, section -->   
+
+        <span></span>   <!-- Conteneur d'élément (espace) -->
+        
+        <p id="identifiant"></p> <!-- Paragraphe avec un identifiant unique -->
+        <p class="classe"></p> <!-- Paragraphe avec une class indiquée pour l'élément en CSS -->
+        <p style="style"></p> <!-- Paragraphe avec un style pour le CSS -->
+        <p data-x="data-x"></p> <!-- Attribut qui stock des informations brutes -->
+
+        <form>
+            <label>   <!-- Légende pour un objet d'interface utilisateur  --> 
+                <input/>   <!-- Fenêtre de collection d'information de l'utilisateur (barre de texte)  -->
+            </label>
+            <button>Bouton</button>   <!-- Bouton  -->
+        </form>   <!-- Formulaire qui contient des contrôles interactifs pour que les utilisateurs fournissent des informations --> 
+    </body>
+
+</html>

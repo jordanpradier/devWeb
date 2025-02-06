@@ -1,0 +1,117 @@
+Collections & Documents
+
+Une collection est comme un objet, et elle stock des documents.
+Tous les documents ont un propriété ID unique pour les identifier, créé par MongoDB lors de la création du document
+
+Exemple de collections:
+"Utilisateurs"		"Articles de blog"		"Commentaires"
+
+Exemple d'un document, dans "Utilisateurs":
+{
+	"prenom": "Maxime",
+	"nom": "Raylet",
+	"age": 24,
+	"hobbies": ["code", "jeux"]
+}
+
+
+Les documents peuvent aussi être imbriqués
+Exemple d'un document avec des documents imbriqués dans "Articles de blog"
+{
+	"titre": "Mon article",
+	"auteur": {
+				"prenom": "Maxime",
+				"nom": "Raylet",
+			}
+	"upvotes": 20
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Commandes
+
+mongosh : Démarre MongoDB dans le terminal
+cls : Clear le terminal
+use db: Switch de DB
+db : Montre la DB active
+show collections : Montre les collections de la DB
+var x = "yz" : Créer la variable "x" avec sa valeur "yz"
+help : Liste de toutes les commandes ainsi que ce à quoi elles servent
+exit : Ferme le terminal
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Ajouter des documents
+
+db.users.insertOne({prenom: "Maxime", nom: "Raylet", age: 23}) : Créer un document dans la collection "users" de la DB active avec ses différents attributs
+La collection n'est pas forcée d'exister, elle peut être créée avec le document dans cette ligne de commande
+Plusieurs ajouts de document sont possible avec la commande "insertMany" au lieu de "insertOne", les séparer avec une , entre les }{
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Trouver des documents
+
+db.users.find() : Output les 20 premiers utilisateurs de la collection "users"
+it : Output les 20 prochains utilisateurs de la collection "users"
+db.users.find({nom: "Barna"}) : Output les utilisateurs ayant le nom: "Barna" dans la collection "users"
+db.users.find({nom: "Barna", age: 24}) :  ayant le nom: "Barna" et age: 24
+db.users.find({nom: "Barna"}, {nom: 1, prenom: 1}) : ayant le nom "Barna" et renvoie uniquement les champs spécifiés avec "1"
+db.users.find({}, {nom: 1}) : Les 20 prochains utilisateurs de "users" et renvoie uniquement le champs spécifié "nom"
+db.users.findOne({nom: "Barna"}) : Le premier utilisateur ayant le nom "Barna"
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Sorting & Limiting Data
+
+db.users.find().count() : Va compter le nombre d'utilisateurs dans "users"
+db.users.find({nom: "Barna"}).count() : Va compter le nombre d'utilisateurs ayant le nom: Barna
+db.users.find().limit(3) : Output les 3 premiers utilisateurs dans "users"
+db.users.find().sort({nom: 1}) : Output tous les utilisateurs dans l'ordre alphabétique de "nom" (-1 pour inverser de sens)
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Documents imbriqués
+
+db.users.insertOne({prenom: "Maxime", nom: "Raylet", age: 24, hobbies: ["code"], reviews: [{name: "Toto", body: "Super"}, {name: "Tata", body: "Moyen"}]})
+
+Ici, je créé une array pour "hobbies" ainsi que pour "reviews", mais reviews possède un document imbriqué spécifié par les { }
+
+db.users.insertMany([{prenom: "Maxime", nom: "Raylet", age: 24, hobbies: ["code"], reviews: [{name: "Toto", body: "Super"}, {name: "Tata", body: "Moyen"}]}, {prenom: "Jordan", nom: "Pradier", age: 24, hobbies: ["coding"], reviews: [{name: "Titi", body: "Bien"}, {name: "Tutu", body: "Cool"}]}])
+
+Pareillement mais avec la fonction "insertMany()" qui permet d'ajouter plusieurs documents
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Opérateurs & Requêtes complexes
+
+Les opérateurs sont dénotés par un "$"
+
+db.users.find({ age: {$gt: 20}}) : Output les utilisateurs qui ont un âge supérieur ($gt = greater than) à 20 ans
+
+$lt = Less than
+$lte = Less than or equal
+$gte = Greater than or equal
+
+db.users.find({ age: {$gt: 20}, prenom: "Maxime"}) : Output les utilisateurs qui ont un âge supérieur à 20 ans et ont le prénom Maxime 
+
+db.users.find{$or: [{age: 24}, {prenom: "Flo"}]}) : Output les utilisateurs qui ont un âge de 24 ans OU ont le prénom Flo
+
+db.users.find{$or: [{age: {$lt: 20}}, {age: {$gt: 30}}]}) : Output les utilisateurs qui ont un âge inférieur à 20 ans OU supérieur à 30 ans
+
+-------------------------------------------------------------------------------------------------------------------------
+
+$in & $nin
+
+db.users.find({ age: {$in: [20,21,22]}}) : Output les utilisateurs qui ont soit 20, 21 ou 22 ans.
+
+db.users.find({ age: {$nin: [20,21,22]}}) : Output les utilisateurs qui n'ont pas 20,21 ou 22 ans.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Interrogation d'arrays
+
+
+
+
+
+

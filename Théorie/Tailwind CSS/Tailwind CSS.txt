@@ -1,0 +1,274 @@
+Tailwind CSS 
+
+https://tailwindcss.com/
+https://play.tailwindcss.com/
+
+--------------------------------------------------------------------------------------
+
+La fonction principale de Tailwind CSS est le fait que nous ne devons plus nous efforcer à trouver un nom de classe personnel pour ensuite lui attribuer du style dans le "style.css", les attributs de style sont directement placés à l'intérieur de l'élément:
+
+<h1 class="paramètres">
+
+--------------------------------------------------------------------------------------
+
+Les paramètres Tailwind CSS sont presque tous le temps écrits de cette façon: "task-value"
+
+Par exemple pour modifier la taille: "h-x" pour une "height" de taille "x"
+
+Il y a plus de fonctionnalités pour définir la taille d'un élément par exemple "h-screen" donnera la taille de l'écran en valeur de la hauteur
+
+Pour override un/des style(s), il suffit simplement d'ajouter le style voulu après celui initialisé de base, Tailwind CSS lit de gauche à droite et de haut en bas
+
+--------------------------------------------------------------------------------------
+
+Le paramètre "display" de CSS peut s'écrire comme ceci en Tailwind CSS:
+
+<div class="class"></div>
+
+.class {
+	display: inline-block;
+}
+
+deviendra simplement:
+
+<div class="inline-block"></div>
+
+--------------------------------------------------------------------------------------
+
+Pour appliquer du style Tailwind CSS en suivant la taille de l'écran, il y a plusieurs paramètres prédéfinis par Tailwind:
+
+sm: 640px ou +
+md: 768px ou + 
+lg: 1024px ou +
+xl: 1280px ou + 
+2xl: 1536px ou +
+
+--------------------------------------------------------------------------------------
+
+Il est possible "d'override" un style par un autre en le mettant à la suite, par exemple:
+
+<div class="invisible sm:visible">sm</div>
+
+Cette div sera invisible jusqu'à ce que l'écran soit supérieur ou égal à 640px de large, il deviendra alors visible
+
+Il est aussi possible de rajouter des styles selon la même règle:
+
+<div class="invisible sm:visible md:text-red-500 lg:text-8xl">sm</div>
+
+Cette div sera invisible jusqu'à 640px de large (sm), son texte deviendra rouge à partir de 768px de large (md) et le texte verra sa taille augmenter à partir de 1024px (lg)
+
+Fonctionnera de la même manière avec le paramètre "display" pour le côté responsive
+
+--------------------------------------------------------------------------------------
+
+Pour les styles d'état, visiter ce lien : tailwindcss.com/docs/hover-focus-and-other-states
+
+Sinon, basiquement il suffit de déclarer cet état dans la même zone que les autres styles, donc pour créer un bouton qui passe de bleu à rouge lors de l'hover:
+
+<button class="bg-blue-500 hover:bg-red-500">Bouton</button>
+
+hover: Le curseur passe sur le bouton
+active: Le bouton est pressé, est utilisé
+focus: Le bouton est sélectionné 
+
+--------------------------------------------------------------------------------------
+
+Les valeurs customisées sont possibles et disponibles pour tous les styles Tailwind CSS
+
+Pour changer la couleur de fond d'un bouton par exemple en hexadémical, il faudra entourer la valeur souhaitée entre crochets [ ]
+
+<button class="bg-[#00d1ad]">Bouton</button>
+
+Un autre exemple utilisant les valeurs de mesure sur le padding X d'un bouton
+
+<button class="px-[3.2rem]">Bouton</button>
+
+----------
+
+https://tailwindcss.com/docs/theme
+
+Il est possible d'ajouter une couleur à son thème pour la réutiliser plus tard dans le projet sans retaper sa valeur hexadécimale entre crochets
+
+Il faut le spécifier dans la config Tailwind du projet dans "extend", par exemple :
+
+extend: {
+	colors: {
+		mint: '#00d1ad',
+	},
+},
+
+Ici, la couleur "mint" est créée avec sa valeur et peut être ré utilisée dans le projet 
+
+<button class="bg-mint">Bouton</button>
+
+Il est préférable d'ajouter tout un spectre de valeurs pour une couleur dans sa config
+
+extend: {
+	colors: {
+		mint: {
+			DEFAULT: '#00d1ad';
+			50 : '##eefffa',
+			500: '#00d1ad',
+			700: '#028371',
+		},
+	},
+},
+
+Et de pouvoir utiliser tout ce spectre de couleur dans le projet
+
+<button class="bg-mint-700">Bouton</button>	Renverra le mint 700 (#028371)
+<button class="bg-mint">Bouton</button>		Renverra le mint défaut (#00d1ad)
+
+https://uicolors.app/create 
+
+Est un logiciel qui rendra le spectre d'une couleur choisie avec la possibilité d'exporter les valeurs selon le format choisi
+
+----------
+
+Il est également possible d'ajouter des valeurs customisées pour les unités de mesure, dans le dossier config
+
+spacing: {
+	13: "3.2rem",
+},
+
+<button class="px-13">Bouton</button>	Renverra 3.2rem sur 13 du padding X
+
+--------------------------------------------------------------------------------------
+
+Tailwind va supprimer tous les styles basiques du HTML, un <h1> aura la même apparence qu'un <h2> pour être sur d'avoir uniquement les styles voulus
+
+C'est pour cette raison que Tailwind créé un fichier CSS qui aura 3 propriétés de base:
+
+- @tailwind base;
+- @tailwind components;
+- @tailwind utilities;
+
+Base: Importe les styles de base de Tailwind CSS, définit les propriétés CSS fondamentales comme les couleurs, les polices et les tailles
+
+Components: Importe les composants pré construits de Tailwind CSS et permet d'utiliser facilement des éléments comme des boutons, des formulaires et des cartes sans avoir à écrire du CSS personnalisé
+
+Utilities: Import les utilitaires de Tailwind CSS, ce sont des classes CSS qui permettent d'appliquer rapidement des styles aux éléments HTML (m-4 pour une marge de 16px)
+
+----------
+
+Il est donc possible d'override ces propriétés dans ce même fichier CSS
+
+----------
+
+Pour override "base" en indiquant que nous souhaitons une taille différentes pour un <h1> et un <h2> :
+
+@layer base {
+	h1 {
+		@apply text-4xl;
+	}
+	h2 {
+		@apply text-2xl;
+	}
+}
+
+Va définir à TOUS les éléments <h1> une taille de texte de "4xl" et à <h2> une taille de texte de "2xl"
+
+Il est possible d'ajouter des valeurs en Tailwind CSS comme ce qu'on vient de faire mais aussi des styles CSS basiques comme :
+
+@layer base {
+	h1 {
+		@apply text-4xl;
+		background-color: red;
+	}
+}
+
+----------
+
+Pour éviter une répétition de code si l'on a besoin d'avoir un bouton spécifique, il est possible d'override "components" pour appliquer un style à certains boutons de mon projet, au lieu d'avoir : 
+
+<button class="rounded-lg bg-red-500 px-4 py-2 text-white">Bouton</button>
+<button class="rounded-lg bg-red-500 px-4 py-2 text-white">Danger</button>
+
+Nous aurons :
+
+<button class="btn-danger">Bouton</button>
+<button class="btn-danger">Danger</button>
+
+Grâce à l'override de "components" :
+
+@layer components {
+	.btn-danger {
+		@apply rounded-lg bg-red-500 px-4 py-2 text-white;
+	}
+}
+
+----------
+
+Pour éviter une répétition de code quand il s'agit par exemple d'aligner un élément dans sa div avec de base :
+
+<div class="flex items-center justify-center bg-blue-500">
+	<p>Hello</p>
+</div>
+
+Il est possible de créer un template dans "utilities" avec l'override :
+
+@layer directives {
+	.flex-center {
+		@apply items-center justify-center;
+	}
+}
+
+Et donc notre <div> pourra être écrite comme cela pour le même résultat :
+
+<div class="flex-center bg-blue-500">
+	<p>Hello</p>
+</div>
+
+--------------------------------------------------------------------------------------
+
+Dark Mode
+
+Prenons exemple d'une div déjà stylisée en blanc avec des ombrages qui contient un élément <h2> lui aussi déjà styilisé avec un texte noir :
+
+<div class="bg-white shadow-lg">
+	<h2 class="text-black">Hello</h2>
+</div>
+
+Pour override ces styles lors du dark mode, il faudra simplement ajouter l'utilitaire "dark" :
+
+<div class="bg-white shadow-lg dark:bg-black dark:shadow-sm">
+	<h2 class="text-black dark:text-white">Hello</h2>
+</div>
+
+Ici, lors de l'activation du dark mode, le style de la <div> passera en noir avec un ombrage moindre et l'élément <h2> en blanc
+
+----------
+
+Pour ajouter le dark mode sur son CSS, il faut se rendre dans le fichier config de Tailwind et ajouter du code en haut de la zone de configuration en dehors de "theme" :
+
+export default {
+	darkMode: 'class',
+	theme: {
+		extend: {
+		},
+	},
+	plugin: [ ],
+}
+
+Maintenant, des que notre <html> prenda la classe "dark", tous les "dark: x" spécifiés dans notre Tailwind prendront leur dark mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

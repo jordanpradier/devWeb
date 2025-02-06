@@ -1,0 +1,7 @@
+HTML
+
+L'utilisation tierce de librairie peut ramener une touche de renouveau à la page web
+- Bootstrap : https://getbootstrap.com/
+
+<form> Prend en charge les attributs universels, il peut y en avoir plusieurs, séparés par des virgules		
+https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
